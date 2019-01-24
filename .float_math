@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void main(){
+	float a, b, sonuc1, sonuc2;
+	int choose;
+	
+	printf("Bu program girdiginiz iki ondalik sayiya, sectiginiz islemi yapar\n");
+	printf("1.Sayi:");
+	scanf("%f", &a);
+	printf("2.Sayi:");
+	scanf("%f", &b);
+	printf("Yapilacak islemi secin(1=+, 2=-, 3=/, 4=*)\n");
+	scanf("%d", &choose);
+
+	switch(choose){
+		case 1:
+			sonuc2=a+b;
+			break;
+		case 2:
+			sonuc2=a-b;
+			break;
+		case 3:
+			sonuc2=a/b;
+			break;
+		case 4:
+			sonuc2=a*b;
+			break;
+		default:
+			printf("Hatali bir sayi girdiniz!!!");
+			exit(0);
+	}
+	sonuc1=(int)sonuc2;
+	
+	if(sonuc1==sonuc2)
+		printf("isleminizin sonucu=%.0f", sonuc1);
+	else	
+		printf("isleminizin sonucu=%.2f", sonuc2);
+}
