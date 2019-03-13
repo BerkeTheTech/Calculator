@@ -9,7 +9,7 @@ int main(){
 	int stack_i[MAX], i=0, x=0, y=0, k;
 	char stack_c[MAX], islem[MAX], sayi_kopya[2];
 	
-	printf("isleminizi giriniz: ");
+	printf("Please Enter Your Equation: ");
 	gets(islem);
 	
 	while(islem[i]!=0){
@@ -115,14 +115,6 @@ int main(){
 				y++;
 			}
 		}
-		printf("\nSayi Stacki:");
-		for(k=0; k<y; k++){
-			printf("%d ", stack_i[k]);
-		}
-		printf("\nIsaret Stacki:");
-		for(k=0; k<x; k++){
-			printf("%c ", stack_c[k]);
-		}
 		i++;
 	}
 	while(x != 0){
@@ -148,14 +140,7 @@ int main(){
 		}
 		stack_c[x-1] = ' ';
 		x--;
-		printf("\nSayi Stacki:");
-		for(k=0; k<y; k++){
-			printf("%d ", stack_i[k]);
-		}
-		printf("\nIsaret Stacki:");
-		for(k=0; k<x; k++){
-			printf("%c ", stack_c[k]);
-		}
 	}
+	printf("Output:%d", stack_i[0]);
 	return 0;
 }
