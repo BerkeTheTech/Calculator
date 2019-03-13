@@ -1,0 +1,161 @@
+//This program is takes your equation as string and calculates it with stacks
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 50
+
+int main(){
+
+	int stack_i[MAX], i=0, x=0, y=0, k;
+	char stack_c[MAX], islem[MAX], sayi_kopya[2];
+	
+	printf("isleminizi giriniz: ");
+	gets(islem);
+	
+	while(islem[i]!=0){
+		if(islem[i] == '('){
+			stack_c[x] = islem[i];
+			x++;
+		}
+		else if(islem[i] == '+' || islem[i] == '-'){
+			if(stack_c[x-1] == '(' || x == 0){
+				stack_c[x] = islem[i];
+				x++;
+			}
+			else{
+				while(x != 0 && stack_c[x-1] != '('){
+					if(stack_c[x-1] == '+'){
+						stack_i[y-2] = stack_i[y-2] + stack_i[y-1];
+						y--;
+					}
+					else if(stack_c[x-1] == '-'){
+						stack_i[y-2] = stack_i[y-2] - stack_i[y-1];
+						y--;
+					}
+					else if(stack_c[x-1] == '*'){
+						stack_i[y-2] = stack_i[y-2] * stack_i[y-1];
+						y--;
+					}
+					else if(stack_c[x-1] == '/'){
+						stack_i[y-2] = stack_i[y-2] / stack_i[y-1];
+						y--;
+					}
+					stack_c[x-1] = ' ';
+					x--;			
+				}
+				stack_c[x] = islem[i];
+				x++;
+			}
+		}
+		else if(islem[i] == '*' || islem[i] == '/'){
+			if(stack_c[x-1] == '(' || stack_c[x-1] == '-' || stack_c[x-1] == '+'){
+				stack_c[x] = islem[i];
+				x++;
+			}
+			else{
+				while(x != 0 && stack_c[x-1] != '+' && stack_c[x-1] != '-'){
+					if(stack_c[x-1] == '*'){
+						stack_i[y-2] = stack_i[y-2] * stack_i[y-1];
+						stack_i[y-1] = stack_i[y];
+						y--;
+					}
+					else if(stack_c[x-1] == '/'){
+						stack_i[y-2] = stack_i[y-2] / stack_i[y-1];
+						stack_i[y-1] = stack_i[y];
+						y--;
+					}
+					stack_c[x-1] = ' ';					
+					x--;			
+				}				
+				stack_c[x] = islem[i];
+				x++;
+			}
+		}
+		else if(islem[i] == ')'){
+			while(stack_c[x-1] != '('){
+				if(stack_c[x-1] == '+'){
+					stack_i[y-2] = stack_i[y-2] + stack_i[y-1];
+					stack_i[y-1] = stack_i[y];
+					y--;
+				}
+				else if(stack_c[x-1] == '-'){
+					stack_i[y-2] = stack_i[y-2] - stack_i[y-1];
+					stack_i[y-1] = stack_i[y];
+					y--;
+				}
+				else if(stack_c[x-1] == '*'){
+					stack_i[y-2] = stack_i[y-2] * stack_i[y-1];
+					stack_i[y-1] = stack_i[y];
+					y--;
+				}
+				else if(stack_c[x-1] == '/'){
+					stack_i[y-2] = stack_i[y-2] / stack_i[y-1];
+					stack_i[y-1] = stack_i[y];
+					y--;
+				}
+				stack_c[x-1] = ' ';
+				x--;			
+			}				
+			stack_c[x-1] = ' ';
+			x--;
+		}
+		else{
+			if(islem[i+1]<='9' && '0'<=islem[i+1]){
+				sayi_kopya[0]=islem[i];
+				sayi_kopya[1]=islem[i+1];
+				stack_i[y] = atoi(sayi_kopya);
+				i++;
+				y++;
+				sayi_kopya[0]=0;
+				sayi_kopya[1]=0;
+			}
+			else{
+				sayi_kopya[0]=islem[i];
+				stack_i[y] = atoi(sayi_kopya);
+				y++;
+			}
+		}
+		printf("\nSayi Stacki:");
+		for(k=0; k<y; k++){
+			printf("%d ", stack_i[k]);
+		}
+		printf("\nIsaret Stacki:");
+		for(k=0; k<x; k++){
+			printf("%c ", stack_c[k]);
+		}
+		i++;
+	}
+	while(x != 0){
+		if(stack_c[x-1] == '+'){
+			stack_i[y-2] = stack_i[y-2] + stack_i[y-1];
+			stack_i[y-1] = stack_i[y];
+			y--;
+		}
+		else if(stack_c[x-1] == '-'){
+			stack_i[y-2] = stack_i[y-2] - stack_i[y-1];
+			stack_i[y-1] = stack_i[y];
+			y--;
+		}
+		else if(stack_c[x-1] == '*'){
+			stack_i[y-2] = stack_i[y-2] * stack_i[y-1];
+			stack_i[y-1] = stack_i[y];
+			y--;
+		}
+		else if(stack_c[x-1] == '/'){
+			stack_i[y-2] = stack_i[y-2] / stack_i[y-1];
+			stack_i[y-1] = stack_i[y];
+			y--;
+		}
+		stack_c[x-1] = ' ';
+		x--;
+		printf("\nSayi Stacki:");
+		for(k=0; k<y; k++){
+			printf("%d ", stack_i[k]);
+		}
+		printf("\nIsaret Stacki:");
+		for(k=0; k<x; k++){
+			printf("%c ", stack_c[k]);
+		}
+	}
+	return 0;
+}
